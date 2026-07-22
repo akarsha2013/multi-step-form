@@ -1,88 +1,52 @@
 // ===== DOM ELEMENTS =====
 
 const steps = document.querySelectorAll(".form-step");
-
 const sidebarSteps = document.querySelectorAll(".step");
 
-const nextBtn = document.getElementById("next-button");
-
-const step2NextBtn = document.getElementById("next-button-step2");
-
-const step3NextBtn = document.getElementById("next-button-step3");
+const nextButtons = document.querySelectorAll("#next-button");
 
 const backBtn2 = document.getElementById("back-button-step2");
-
 const backBtn3 = document.getElementById("back-button-step3");
-
 const backBtn4 = document.getElementById("back-button-step4");
-
-const confirmBtn = document.getElementById("confirm-button");
 
 const changePlan = document.getElementById("change-plan");
 
 const nameInput = document.querySelector('input[name="userName"]');
-
 const emailInput = document.querySelector('input[name="email"]');
-
 const phoneInput = document.querySelector('input[name="phone"]');
 
 const nameError = document.getElementById("name-error");
-
 const emailError = document.getElementById("email-error");
-
 const phoneError = document.getElementById("phone-error");
-
 
 // ===== GLOBAL VARIABLES =====
 
 let currentStep = 1;
-
 let billingType = "monthly";
-
 let selectedPlan = "Arcade";
-
 let selectedPlanPrice = 9;
-
 let selectedAddons = [];
 
-
-// ===== INITIALIZE =====
-
 showStep(1);
-
-
-// ===== SHOW STEP =====
 
 function showStep(step){
 
     steps.forEach(section=>{
-
         section.classList.remove("active");
-
     });
 
-    document
-        .getElementById("step"+step)
-        .classList.add("active");
+    document.getElementById("step"+step).classList.add("active");
 
     sidebarSteps.forEach(item=>{
-
         item.classList.remove("active");
-
     });
 
     if(step<=4){
-
         sidebarSteps[step-1].classList.add("active");
-
     }
 
     currentStep=step;
-
 }
-
-
-// ===== VALIDATE STEP 1 =====
 
 function validateStep1(){
 
@@ -93,53 +57,37 @@ function validateStep1(){
     phoneError.textContent="";
 
     if(nameInput.value.trim()===""){
-
         nameError.textContent="Enter your name";
-
         valid=false;
-
     }
 
     if(emailInput.value.trim()===""){
-
         emailError.textContent="Enter email";
-
         valid=false;
-
-    }
-
-    else{
+    }else{
 
         const regex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if(!regex.test(emailInput.value.trim())){
-
             emailError.textContent="Email is not formatted correctly";
-
             valid=false;
-
         }
 
     }
 
     if(phoneInput.value.trim()===""){
-
         phoneError.textContent="Enter your mobile number";
-
         valid=false;
-
     }
 
     return valid;
-
 }
-
 
 // ===== STEP 1 NEXT =====
 
-nextBtn.addEventListener("click",()=>{
+nextButtons[0].addEventListener("click", () => {
 
-    if(validateStep1()){
+    if (validateStep1()) {
 
         showStep(2);
 
@@ -147,22 +95,21 @@ nextBtn.addEventListener("click",()=>{
 
 });
 
-
 // ===== GO BACK =====
 
-backBtn2.addEventListener("click",()=>{
+backBtn2.addEventListener("click", () => {
 
     showStep(1);
 
 });
 
-backBtn3.addEventListener("click",()=>{
+backBtn3.addEventListener("click", () => {
 
     showStep(2);
 
 });
 
-backBtn4.addEventListener("click",()=>{
+backBtn4.addEventListener("click", () => {
 
     showStep(3);
 
@@ -199,7 +146,6 @@ planCards.forEach(card => {
     });
 
 });
-
 
 // ===== BILLING TOGGLE =====
 
@@ -244,6 +190,31 @@ billingToggle.addEventListener("change", () => {
 
 });
 
+// ===== STEP 2 NEXT =====
+
+nextButtons[1].addEventListener("click", () => {
+
+    showStep(3);
+
+});
+
+// ===== ADDON SELECTION =====
+
+const addonCards = document.querySelectorAll(".addon_card");
+
+addonCards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        card.classList.toggle("selected");
+
+        const checkbox = card.querySelector("input");
+
+        checkbox.checked = !checkbox.checked;
+
+    });
+
+});
 
 // ===== UPDATE PLAN & ADDON PRICES =====
 
@@ -281,66 +252,7 @@ function updatePrices() {
 
 }
 
-
-// ===== STEP 2 NEXT =====
-
-step2NextBtn.addEventListener("click", () => {
-
-    showStep(3);
-
-});
-
-
-// ===== ADDON SELECTION =====
-
-const addonCards = document.querySelectorAll(".addon_card");
-
-addonCards.forEach(card => {
-
-    card.addEventListener("click", () => {
-
-        card.classList.toggle("selected");
-
-        const checkbox = card.querySelector("input");
-
-        checkbox.checked = !checkbox.checked;
-
-    });
-
-});
-
-
-// ===== STEP 3 NEXT =====
-
-step3NextBtn.addEventListener("click", () => {
-
-    selectedAddons = [];
-
-    addonCards.forEach(card => {
-
-        if (card.classList.contains("selected")) {
-
-            selectedAddons.push({
-
-                name: card.dataset.addon,
-
-                price: billingType === "monthly"
-                    ? Number(card.dataset.monthly)
-                    : Number(card.dataset.yearly)
-
-            });
-
-        }
-
-    });
-
-    updateSummary();
-
-    showStep(4);
-
-});
-
-// ===== SUMMARY =====
+// ===== SUMMARY ELEMENTS =====
 
 const summaryPlanName = document.getElementById("summary-plan-name");
 
@@ -351,6 +263,8 @@ const summaryAddons = document.getElementById("summary-addons");
 const summaryTotalPrice = document.getElementById("summary-total-price");
 
 const totalLabel = document.getElementById("total-label");
+
+// ===== UPDATE SUMMARY =====
 
 function updateSummary() {
 
@@ -401,6 +315,36 @@ function updateSummary() {
 
 }
 
+// ===== STEP 3 NEXT =====
+
+nextButtons[2].addEventListener("click", () => {
+
+    selectedAddons = [];
+
+    addonCards.forEach(card => {
+
+        if (card.classList.contains("selected")) {
+
+            selectedAddons.push({
+
+                name: card.dataset.addon,
+
+                price:
+                    billingType === "monthly"
+                        ? Number(card.dataset.monthly)
+                        : Number(card.dataset.yearly)
+
+            });
+
+        }
+
+    });
+
+    updateSummary();
+
+    showStep(4);
+
+});
 
 // ===== CHANGE PLAN =====
 
@@ -412,10 +356,9 @@ changePlan.addEventListener("click", function (e) {
 
 });
 
-
 // ===== CONFIRM =====
 
-confirmBtn.addEventListener("click", () => {
+nextButtons[3].addEventListener("click", () => {
 
     steps.forEach(step => {
 
@@ -423,9 +366,7 @@ confirmBtn.addEventListener("click", () => {
 
     });
 
-    document
-        .getElementById("thankyou")
-        .classList.add("active");
+    document.getElementById("thankyou").classList.add("active");
 
     sidebarSteps.forEach(item => {
 
@@ -435,8 +376,7 @@ confirmBtn.addEventListener("click", () => {
 
 });
 
-
-// ===== INITIAL SUMMARY =====
+// ===== INITIALIZE =====
 
 updatePrices();
 
