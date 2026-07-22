@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Multi Step Form</title>
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -63,15 +62,14 @@
 
             <div class="form-group">
 
-                <label for="userName">
-                    Name
-                </label>
+                <label for="userName">Name</label>
 
                 <input
                     type="text"
                     id="userName"
                     name="userName"
-                    placeholder="e.g. Stephen King">
+                    placeholder="e.g. Stephen King"
+                    required>
 
                 <small id="name-error" class="error"></small>
 
@@ -79,15 +77,14 @@
 
             <div class="form-group">
 
-                <label for="email">
-                    Email Address
-                </label>
+                <label for="email">Email Address</label>
 
                 <input
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="e.g. stephenking@lorem.com">
+                    placeholder="e.g. stephenking@lorem.com"
+                    required>
 
                 <small id="email-error" class="error"></small>
 
@@ -95,15 +92,14 @@
 
             <div class="form-group">
 
-                <label for="phone">
-                    Phone Number
-                </label>
+                <label for="phone">Phone Number</label>
 
                 <input
                     type="tel"
                     id="phone"
                     name="phone"
-                    placeholder="e.g. +1 234 567 890">
+                    placeholder="e.g. +1 234 567 890"
+                    required>
 
                 <small id="phone-error" class="error"></small>
 
@@ -111,14 +107,15 @@
 
             <div class="button-group">
 
-                <button id="next-button" type="button">
+                <button
+                    type="button"
+                    id="next-button">
                     Next Step
                 </button>
 
             </div>
 
         </section>
-
                 <!-- STEP 2 -->
         <section id="step2" class="form-step">
 
@@ -212,7 +209,7 @@
 
         </section>
 
-                <!-- STEP 3 -->
+        <!-- STEP 3 -->
         <section id="step3" class="form-step">
 
             <h1>Pick add-ons</h1>
@@ -327,11 +324,15 @@
                 <div class="summary-plan">
 
                     <div>
-                        <h3 id="summary-plan-name">Arcade (Monthly)</h3>
+
+                        <h3 id="summary-plan-name">
+                            Arcade (Monthly)
+                        </h3>
 
                         <a href="#" id="change-plan">
                             Change
                         </a>
+
                     </div>
 
                     <strong id="summary-plan-price">
@@ -394,9 +395,10 @@
                 <h1>Thank You!</h1>
 
                 <p>
-                    Thanks for confirming your subscription! We hope you
-                    have fun using our platform. If you ever need support,
-                    please feel free to email us.
+                    Thanks for confirming your subscription!
+                    We hope you have fun using our platform.
+                    If you ever need support, please feel free
+                    to email us.
                 </p>
 
             </div>
@@ -410,4 +412,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>
