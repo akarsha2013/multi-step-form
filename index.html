@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi Step Form</title>
-
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -20,7 +18,7 @@
             <div class="step-number">1</div>
             <div class="step-info">
                 <span>Step 1</span>
-                <h4>Your Info</h4>
+                <h4>YOUR INFO</h4>
             </div>
         </div>
 
@@ -28,7 +26,7 @@
             <div class="step-number">2</div>
             <div class="step-info">
                 <span>Step 2</span>
-                <h4>Select Plan</h4>
+                <h4>SELECT PLAN</h4>
             </div>
         </div>
 
@@ -36,7 +34,7 @@
             <div class="step-number">3</div>
             <div class="step-info">
                 <span>Step 3</span>
-                <h4>Add-ons</h4>
+                <h4>ADD-ONS</h4>
             </div>
         </div>
 
@@ -44,13 +42,13 @@
             <div class="step-number">4</div>
             <div class="step-info">
                 <span>Step 4</span>
-                <h4>Summary</h4>
+                <h4>SUMMARY</h4>
             </div>
         </div>
 
     </aside>
 
-    <!-- Main Form -->
+    <!-- Form -->
     <main class="form-container">
 
         <!-- STEP 1 -->
@@ -61,62 +59,47 @@
             <p>Please provide your name, email address, and phone number.</p>
 
             <div class="form-group">
-
-                <label for="userName">Name</label>
-
+                <label>Name</label>
                 <input
                     type="text"
                     id="userName"
                     name="userName"
                     placeholder="e.g. Stephen King"
                     required>
-
                 <small id="name-error" class="error"></small>
-
             </div>
 
             <div class="form-group">
-
-                <label for="email">Email Address</label>
-
+                <label>Email Address</label>
                 <input
                     type="email"
                     id="email"
                     name="email"
                     placeholder="e.g. stephenking@lorem.com"
                     required>
-
                 <small id="email-error" class="error"></small>
-
             </div>
 
             <div class="form-group">
-
-                <label for="phone">Phone Number</label>
-
+                <label>Phone Number</label>
                 <input
                     type="tel"
                     id="phone"
                     name="phone"
                     placeholder="e.g. +1 234 567 890"
                     required>
-
                 <small id="phone-error" class="error"></small>
-
             </div>
 
             <div class="button-group">
-
-                <button
-                    type="button"
-                    id="next-button">
+                <button type="button" id="next-button">
                     Next Step
                 </button>
-
             </div>
 
         </section>
-                <!-- STEP 2 -->
+
+        <!-- STEP 2 -->
         <section id="step2" class="form-step">
 
             <h1>Select your plan</h1>
@@ -126,9 +109,9 @@
             <div class="plans">
 
                 <div class="plan_card selected"
-                     data-plan="Arcade"
-                     data-monthly="9"
-                     data-yearly="90">
+                    data-plan="Arcade"
+                    data-monthly="9"
+                    data-yearly="90">
 
                     <img src="./images/icon-arcade.svg" alt="Arcade">
 
@@ -140,9 +123,9 @@
                 </div>
 
                 <div class="plan_card"
-                     data-plan="Advanced"
-                     data-monthly="12"
-                     data-yearly="120">
+                    data-plan="Advanced"
+                    data-monthly="12"
+                    data-yearly="120">
 
                     <img src="./images/icon-advanced.svg" alt="Advanced">
 
@@ -154,9 +137,9 @@
                 </div>
 
                 <div class="plan_card"
-                     data-plan="Pro"
-                     data-monthly="15"
-                     data-yearly="150">
+                    data-plan="Pro"
+                    data-monthly="15"
+                    data-yearly="150">
 
                     <img src="./images/icon-pro.svg" alt="Pro">
 
@@ -171,21 +154,14 @@
 
             <div class="billing-toggle">
 
-                <span id="monthly-label" class="active">
-                    Monthly
-                </span>
+                <span id="monthly-label" class="active">Monthly</span>
 
                 <label class="switch">
-
                     <input type="checkbox" id="billing-toggle">
-
                     <span class="slider"></span>
-
                 </label>
 
-                <span id="yearly-label">
-                    Yearly
-                </span>
+                <span id="yearly-label">Yearly</span>
 
             </div>
 
@@ -193,14 +169,14 @@
 
                 <button
                     type="button"
-                    id="back-button"
+                    id="back-button-step2"
                     class="back-btn">
                     Go Back
                 </button>
 
                 <button
                     type="button"
-                    id="next-button"
+                    id="next-button-step2"
                     class="next-btn">
                     Next Step
                 </button>
@@ -209,7 +185,7 @@
 
         </section>
 
-        <!-- STEP 3 -->
+                <!-- STEP 3 -->
         <section id="step3" class="form-step">
 
             <h1>Pick add-ons</h1>
@@ -219,9 +195,9 @@
             <div class="addons">
 
                 <div class="addon_card"
-                     data-addon="Online service"
-                     data-monthly="1"
-                     data-yearly="10">
+                    data-addon="Online service"
+                    data-monthly="1"
+                    data-yearly="10">
 
                     <input
                         type="checkbox"
@@ -229,23 +205,18 @@
                         class="addon-checkbox">
 
                     <div class="addon-details">
-
                         <h3>Online service</h3>
-
                         <p>Access to multiplayer games</p>
-
                     </div>
 
-                    <span class="addon-price">
-                        +$1/mo
-                    </span>
+                    <span class="addon-price">+$1/mo</span>
 
                 </div>
 
                 <div class="addon_card"
-                     data-addon="Larger storage"
-                     data-monthly="2"
-                     data-yearly="20">
+                    data-addon="Larger storage"
+                    data-monthly="2"
+                    data-yearly="20">
 
                     <input
                         type="checkbox"
@@ -253,23 +224,18 @@
                         class="addon-checkbox">
 
                     <div class="addon-details">
-
                         <h3>Larger storage</h3>
-
                         <p>Extra 1TB of cloud save</p>
-
                     </div>
 
-                    <span class="addon-price">
-                        +$2/mo
-                    </span>
+                    <span class="addon-price">+$2/mo</span>
 
                 </div>
 
                 <div class="addon_card"
-                     data-addon="Customizable profile"
-                     data-monthly="2"
-                     data-yearly="20">
+                    data-addon="Customizable profile"
+                    data-monthly="2"
+                    data-yearly="20">
 
                     <input
                         type="checkbox"
@@ -277,16 +243,11 @@
                         class="addon-checkbox">
 
                     <div class="addon-details">
-
                         <h3>Customizable profile</h3>
-
                         <p>Custom theme on your profile</p>
-
                     </div>
 
-                    <span class="addon-price">
-                        +$2/mo
-                    </span>
+                    <span class="addon-price">+$2/mo</span>
 
                 </div>
 
@@ -296,14 +257,14 @@
 
                 <button
                     type="button"
-                    id="back-button"
+                    id="back-button-step3"
                     class="back-btn">
                     Go Back
                 </button>
 
                 <button
                     type="button"
-                    id="next-button"
+                    id="next-button-step3"
                     class="next-btn">
                     Next Step
                 </button>
@@ -312,7 +273,7 @@
 
         </section>
 
-                <!-- STEP 4 -->
+        <!-- STEP 4 -->
         <section id="step4" class="form-step">
 
             <h1>Finishing up</h1>
@@ -324,7 +285,6 @@
                 <div class="summary-plan">
 
                     <div>
-
                         <h3 id="summary-plan-name">
                             Arcade (Monthly)
                         </h3>
@@ -332,7 +292,6 @@
                         <a href="#" id="change-plan">
                             Change
                         </a>
-
                     </div>
 
                     <strong id="summary-plan-price">
@@ -344,9 +303,7 @@
                 <hr>
 
                 <div id="summary-addons">
-
-                    <!-- Add-ons will be inserted using JavaScript -->
-
+                    <!-- Add-ons inserted using JavaScript -->
                 </div>
 
             </div>
@@ -367,7 +324,7 @@
 
                 <button
                     type="button"
-                    id="back-button"
+                    id="back-button-step4"
                     class="back-btn">
                     Go Back
                 </button>
@@ -395,10 +352,9 @@
                 <h1>Thank You!</h1>
 
                 <p>
-                    Thanks for confirming your subscription!
-                    We hope you have fun using our platform.
-                    If you ever need support, please feel free
-                    to email us.
+                    Thanks for confirming your subscription! We hope you have
+                    fun using our platform. If you ever need support, please
+                    feel free to email us.
                 </p>
 
             </div>
@@ -412,5 +368,4 @@
 <script src="script.js"></script>
 
 </body>
-
 </html>
