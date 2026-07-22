@@ -1,129 +1,98 @@
-// ================================
-// ELEMENTS
-// ================================
+// ===== DOM ELEMENTS =====
 
 const steps = document.querySelectorAll(".form-step");
+
 const sidebarSteps = document.querySelectorAll(".step");
 
-const nextButton = document.getElementById("next-button");
+const nextBtn = document.getElementById("next-button");
 
-const backButtons = document.querySelectorAll(".backBtn");
-const nextButtons = document.querySelectorAll(".nextBtn");
+const step2NextBtn = document.getElementById("next-button-step2");
 
-const confirmBtn = document.getElementById("confirmBtn");
+const step3NextBtn = document.getElementById("next-button-step3");
 
-const changePlan = document.getElementById("changePlan");
+const backBtn2 = document.getElementById("back-button-step2");
 
-const userName = document.querySelector("input[name='userName']");
-const email = document.querySelector("input[name='email']");
-const phone = document.querySelector("input[name='phone']");
+const backBtn3 = document.getElementById("back-button-step3");
 
-const nameError = document.getElementById("nameError");
-const emailError = document.getElementById("emailError");
-const phoneError = document.getElementById("phoneError");
+const backBtn4 = document.getElementById("back-button-step4");
 
-// ================================
-// APP DATA
-// ================================
+const confirmBtn = document.getElementById("confirm-button");
+
+const changePlan = document.getElementById("change-plan");
+
+const nameInput = document.querySelector('input[name="userName"]');
+
+const emailInput = document.querySelector('input[name="email"]');
+
+const phoneInput = document.querySelector('input[name="phone"]');
+
+const nameError = document.getElementById("name-error");
+
+const emailError = document.getElementById("email-error");
+
+const phoneError = document.getElementById("phone-error");
+
+
+// ===== GLOBAL VARIABLES =====
 
 let currentStep = 1;
 
-let billing = "monthly";
+let billingType = "monthly";
 
-let selectedPlan = null;
+let selectedPlan = "Arcade";
+
+let selectedPlanPrice = 9;
 
 let selectedAddons = [];
 
-// ================================
-// PLAN DATA
-// ================================
 
-const monthlyPlans = {
-    Arcade: 9,
-    Advance: 12,
-    Pro: 15
-};
+// ===== INITIALIZE =====
 
-const yearlyPlans = {
-    Arcade: 90,
-    Advance: 120,
-    Pro: 150
-};
+showStep(1);
 
-const monthlyAddons = {
-    online: 1,
-    storage: 2,
-    profile: 2
-};
 
-const yearlyAddons = {
-    online: 10,
-    storage: 20,
-    profile: 20
-};
+// ===== SHOW STEP =====
 
-// ================================
-// STEP FUNCTIONS
-// ================================
+function showStep(step){
 
-function showStep(step) {
-
-    steps.forEach(section => {
+    steps.forEach(section=>{
 
         section.classList.remove("active");
 
     });
 
-    sidebarSteps.forEach(item => {
+    document
+        .getElementById("step"+step)
+        .classList.add("active");
+
+    sidebarSteps.forEach(item=>{
 
         item.classList.remove("active");
 
     });
 
-    currentStep = step;
+    if(step<=4){
 
-    if(step===5){
-
-        document
-        .getElementById("thankYou")
-        .classList.add("active");
-
-        return;
+        sidebarSteps[step-1].classList.add("active");
 
     }
 
-    document
-    .getElementById("step"+step)
-    .classList.add("active");
-
-    sidebarSteps[step-1]
-    .classList.add("active");
+    currentStep=step;
 
 }
 
-// ================================
-// VALIDATION
-// ================================
 
-function clearErrors(){
+// ===== VALIDATE STEP 1 =====
 
-    nameError.textContent="";
-
-    emailError.textContent="";
-
-    phoneError.textContent="";
-
-}
-
-function validateStepOne(){
-
-    clearErrors();
+function validateStep1(){
 
     let valid=true;
 
-    // Name
+    nameError.textContent="";
+    emailError.textContent="";
+    phoneError.textContent="";
 
-    if(userName.value.trim()===""){
+    if(nameInput.value.trim()===""){
 
         nameError.textContent="Enter your name";
 
@@ -131,11 +100,7 @@ function validateStepOne(){
 
     }
 
-    // Email
-
-    const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if(email.value.trim()===""){
+    if(emailInput.value.trim()===""){
 
         emailError.textContent="Enter email";
 
@@ -143,29 +108,23 @@ function validateStepOne(){
 
     }
 
-    else if(!emailRegex.test(email.value)){
+    else{
 
-        emailError.textContent="Email is not formatted correctly";
+        const regex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        valid=false;
+        if(!regex.test(emailInput.value.trim())){
+
+            emailError.textContent="Email is not formatted correctly";
+
+            valid=false;
+
+        }
 
     }
 
-    // Phone
-
-    const phoneRegex=/^[0-9]{10}$/;
-
-    if(phone.value.trim()===""){
+    if(phoneInput.value.trim()===""){
 
         phoneError.textContent="Enter your mobile number";
-
-        valid=false;
-
-    }
-
-    else if(!phoneRegex.test(phone.value)){
-
-        phoneError.textContent="Phone should contain 10 digits";
 
         valid=false;
 
@@ -175,13 +134,12 @@ function validateStepOne(){
 
 }
 
-// ================================
-// NEXT BUTTON STEP 1
-// ================================
 
-nextButton.addEventListener("click",function(){
+// ===== STEP 1 NEXT =====
 
-    if(validateStepOne()){
+nextBtn.addEventListener("click",()=>{
+
+    if(validateStep1()){
 
         showStep(2);
 
@@ -189,167 +147,52 @@ nextButton.addEventListener("click",function(){
 
 });
 
-// ================================
-// BACK BUTTONS
-// ================================
 
-backButtons.forEach(button=>{
+// ===== GO BACK =====
 
-    button.addEventListener("click",function(){
+backBtn2.addEventListener("click",()=>{
 
-        if(currentStep>1){
-
-            showStep(currentStep-1);
-
-        }
-
-    });
+    showStep(1);
 
 });
 
-// ================================
-// STEP 2 - PLAN SELECTION
-// ================================
+backBtn3.addEventListener("click",()=>{
 
-const planCards = document.querySelectorAll(".plan_card");
-const planError = document.getElementById("planError");
-const billingToggle = document.getElementById("billingToggle");
-
-planCards.forEach(card => {
-
-    card.addEventListener("click", function () {
-
-        planCards.forEach(item => item.classList.remove("active"));
-
-        this.classList.add("active");
-
-        selectedPlan = this.dataset.name;
-
-        planError.textContent = "";
-
-    });
+    showStep(2);
 
 });
 
-// ================================
-// BILLING TOGGLE
-// ================================
-
-billingToggle.addEventListener("change", function () {
-
-    billing = this.checked ? "yearly" : "monthly";
-
-    planCards.forEach(card => {
-
-        const planName = card.dataset.name;
-
-        const price = billing === "monthly"
-            ? monthlyPlans[planName]
-            : yearlyPlans[planName];
-
-        card.querySelector("p").textContent =
-            billing === "monthly"
-                ? `$${price}/mo`
-                : `$${price}/yr`;
-
-        let bonus = card.querySelector("small");
-
-        if (!bonus) {
-
-            bonus = document.createElement("small");
-
-            card.appendChild(bonus);
-
-        }
-
-        bonus.textContent =
-            billing === "yearly"
-                ? "2 Months Free"
-                : "";
-
-    });
-
-    // Update Addon Prices
-
-    const addonCards = document.querySelectorAll(".addon_card");
-
-    addonCards.forEach((card, index) => {
-
-        const priceSpan = card.querySelector("span");
-
-        const monthly = [1,2,2];
-
-        const yearly = [10,20,20];
-
-        priceSpan.textContent =
-            billing === "monthly"
-                ? `+$${monthly[index]}/mo`
-                : `+$${yearly[index]}/yr`;
-
-    });
-
-});
-
-// ================================
-// STEP 2 NEXT
-// ================================
-
-nextButtons[0].addEventListener("click", function () {
-
-    if (!selectedPlan) {
-
-        planError.textContent = "Please select a plan";
-
-        return;
-
-    }
+backBtn4.addEventListener("click",()=>{
 
     showStep(3);
 
 });
 
-// ================================
-// STEP 3 ADDONS
-// ================================
+// ===== PLAN SELECTION =====
 
-const addonCards = document.querySelectorAll(".addon_card");
+const planCards = document.querySelectorAll(".plan_card");
 
-addonCards.forEach((card,index)=>{
+planCards.forEach(card => {
 
-    card.addEventListener("click",function(e){
+    card.addEventListener("click", () => {
 
-        if(e.target.tagName!=="INPUT"){
+        planCards.forEach(item => {
 
-            const checkbox=this.querySelector("input");
+            item.classList.remove("selected");
 
-            checkbox.checked=!checkbox.checked;
+        });
 
-        }
+        card.classList.add("selected");
 
-        this.classList.toggle("active");
+        selectedPlan = card.dataset.plan;
 
-        const addonName=[
-            "online",
-            "storage",
-            "profile"
-        ][index];
+        if (billingType === "monthly") {
 
-        if(this.classList.contains("active")){
+            selectedPlanPrice = Number(card.dataset.monthly);
 
-            if(!selectedAddons.includes(addonName)){
+        } else {
 
-                selectedAddons.push(addonName);
-
-            }
-
-        }
-
-        else{
-
-            selectedAddons=
-            selectedAddons.filter(
-                item=>item!==addonName
-            );
+            selectedPlanPrice = Number(card.dataset.yearly);
 
         }
 
@@ -357,113 +200,211 @@ addonCards.forEach((card,index)=>{
 
 });
 
-// ================================
-// STEP 3 NEXT
-// ================================
 
-nextButtons[1].addEventListener("click",function(){
+// ===== BILLING TOGGLE =====
 
-    generateSummary();
+const billingToggle = document.getElementById("billing-toggle");
+
+const monthlyLabel = document.getElementById("monthly-label");
+
+const yearlyLabel = document.getElementById("yearly-label");
+
+billingToggle.addEventListener("change", () => {
+
+    if (billingToggle.checked) {
+
+        billingType = "yearly";
+
+        monthlyLabel.classList.remove("active");
+
+        yearlyLabel.classList.add("active");
+
+    } else {
+
+        billingType = "monthly";
+
+        yearlyLabel.classList.remove("active");
+
+        monthlyLabel.classList.add("active");
+
+    }
+
+    const selectedCard = document.querySelector(".plan_card.selected");
+
+    if (selectedCard) {
+
+        selectedPlanPrice =
+            billingType === "monthly"
+                ? Number(selectedCard.dataset.monthly)
+                : Number(selectedCard.dataset.yearly);
+
+    }
+
+    updatePrices();
+
+});
+
+
+// ===== UPDATE PLAN & ADDON PRICES =====
+
+function updatePrices() {
+
+    planCards.forEach(card => {
+
+        const price = billingType === "monthly"
+            ? card.dataset.monthly
+            : card.dataset.yearly;
+
+        const suffix = billingType === "monthly"
+            ? "/mo"
+            : "/yr";
+
+        card.querySelector(".plan-price").textContent =
+            `$${price}${suffix}`;
+
+    });
+
+    addonCards.forEach(card => {
+
+        const price = billingType === "monthly"
+            ? card.dataset.monthly
+            : card.dataset.yearly;
+
+        const suffix = billingType === "monthly"
+            ? "/mo"
+            : "/yr";
+
+        card.querySelector(".addon-price").textContent =
+            `+$${price}${suffix}`;
+
+    });
+
+}
+
+
+// ===== STEP 2 NEXT =====
+
+step2NextBtn.addEventListener("click", () => {
+
+    showStep(3);
+
+});
+
+
+// ===== ADDON SELECTION =====
+
+const addonCards = document.querySelectorAll(".addon_card");
+
+addonCards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        card.classList.toggle("selected");
+
+        const checkbox = card.querySelector("input");
+
+        checkbox.checked = !checkbox.checked;
+
+    });
+
+});
+
+
+// ===== STEP 3 NEXT =====
+
+step3NextBtn.addEventListener("click", () => {
+
+    selectedAddons = [];
+
+    addonCards.forEach(card => {
+
+        if (card.classList.contains("selected")) {
+
+            selectedAddons.push({
+
+                name: card.dataset.addon,
+
+                price: billingType === "monthly"
+                    ? Number(card.dataset.monthly)
+                    : Number(card.dataset.yearly)
+
+            });
+
+        }
+
+    });
+
+    updateSummary();
 
     showStep(4);
 
 });
 
-// =======================================
-// SUMMARY ELEMENTS
-// =======================================
+// ===== SUMMARY =====
 
-const selectedPlanText = document.getElementById("selectedPlan");
-const planPriceText = document.getElementById("planPrice");
-const addonsList = document.getElementById("addonsList");
-const totalPrice = document.getElementById("totalPrice");
+const summaryPlanName = document.getElementById("summary-plan-name");
 
-// =======================================
-// GENERATE SUMMARY
-// =======================================
+const summaryPlanPrice = document.getElementById("summary-plan-price");
 
-function generateSummary() {
+const summaryAddons = document.getElementById("summary-addons");
 
-    const planPrice =
-        billing === "monthly"
-            ? monthlyPlans[selectedPlan]
-            : yearlyPlans[selectedPlan];
+const summaryTotalPrice = document.getElementById("summary-total-price");
 
-    selectedPlanText.textContent =
-        `${selectedPlan} (${billing})`;
+const totalLabel = document.getElementById("total-label");
 
-    planPriceText.textContent =
-        billing === "monthly"
-            ? `$${planPrice}/mo`
-            : `$${planPrice}/yr`;
+function updateSummary() {
 
-    addonsList.innerHTML = "";
+    summaryPlanName.textContent =
+        `${selectedPlan} (${billingType === "monthly" ? "Monthly" : "Yearly"})`;
 
-    let total = planPrice;
+    summaryPlanPrice.textContent =
+        billingType === "monthly"
+            ? `$${selectedPlanPrice}/mo`
+            : `$${selectedPlanPrice}/yr`;
+
+    summaryAddons.innerHTML = "";
+
+    let total = selectedPlanPrice;
 
     selectedAddons.forEach(addon => {
 
-        let addonTitle = "";
-        let addonPrice = 0;
+        total += addon.price;
 
-        if(addon==="online"){
+        const item = document.createElement("div");
 
-            addonTitle="Online Services";
+        item.className = "summary-item";
 
-            addonPrice=
-            billing==="monthly"
-            ? monthlyAddons.online
-            : yearlyAddons.online;
-
-        }
-
-        if(addon==="storage"){
-
-            addonTitle="Larger Storage";
-
-            addonPrice=
-            billing==="monthly"
-            ? monthlyAddons.storage
-            : yearlyAddons.storage;
-
-        }
-
-        if(addon==="profile"){
-
-            addonTitle="Customizable Profile";
-
-            addonPrice=
-            billing==="monthly"
-            ? monthlyAddons.profile
-            : yearlyAddons.profile;
-
-        }
-
-        total+=addonPrice;
-
-        const div=document.createElement("div");
-
-        div.innerHTML=`
-            <span>${addonTitle}</span>
-            <strong>+$${addonPrice}/${billing==="monthly"?"mo":"yr"}</strong>
+        item.innerHTML = `
+            <span>${addon.name}</span>
+            <strong>
+                +$${addon.price}${billingType === "monthly" ? "/mo" : "/yr"}
+            </strong>
         `;
 
-        addonsList.appendChild(div);
+        summaryAddons.appendChild(item);
 
     });
 
-    totalPrice.textContent=
-        billing==="monthly"
-        ? `$${total}/mo`
-        : `$${total}/yr`;
+    if (billingType === "monthly") {
+
+        totalLabel.textContent = "Total (per month)";
+
+        summaryTotalPrice.textContent = `+$${total}/mo`;
+
+    } else {
+
+        totalLabel.textContent = "Total (per year)";
+
+        summaryTotalPrice.textContent = `+$${total}/yr`;
+
+    }
 
 }
 
-// =======================================
-// CHANGE PLAN
-// =======================================
 
-changePlan.addEventListener("click",function(e){
+// ===== CHANGE PLAN =====
+
+changePlan.addEventListener("click", function (e) {
 
     e.preventDefault();
 
@@ -471,32 +412,32 @@ changePlan.addEventListener("click",function(e){
 
 });
 
-// =======================================
-// CONFIRM BUTTON
-// =======================================
 
-confirmBtn.addEventListener("click",function(){
+// ===== CONFIRM =====
 
-    steps.forEach(step=>{
+confirmBtn.addEventListener("click", () => {
 
-        step.classList.remove("active");
-
-    });
-
-    sidebarSteps.forEach(step=>{
+    steps.forEach(step => {
 
         step.classList.remove("active");
 
     });
 
     document
-        .getElementById("thankYou")
+        .getElementById("thankyou")
         .classList.add("active");
+
+    sidebarSteps.forEach(item => {
+
+        item.classList.remove("active");
+
+    });
 
 });
 
-// =======================================
-// INITIALIZE
-// =======================================
 
-showStep(1);
+// ===== INITIAL SUMMARY =====
+
+updatePrices();
+
+updateSummary();
