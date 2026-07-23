@@ -1,6 +1,6 @@
-// =====================
+// ==========================
 // DOM ELEMENTS
-// =====================
+// ==========================
 
 const steps = document.querySelectorAll(".form-step");
 const sidebarSteps = document.querySelectorAll(".step");
@@ -37,344 +37,337 @@ const summaryAddons = document.getElementById("summary-addons");
 const summaryTotalPrice = document.getElementById("summary-total-price");
 const totalLabel = document.getElementById("total-label");
 
-
-// =====================
+// ==========================
 // GLOBAL VARIABLES
-// =====================
+// ==========================
 
 let currentStep = 1;
-
 let billingType = "monthly";
 
 let selectedPlan = "Arcade";
-
 let selectedPlanPrice = 9;
 
 let selectedAddons = [];
 
-// =====================
+// ==========================
 // SHOW STEP
-// =====================
+// ==========================
 
 function showStep(step) {
 
-  steps.forEach((section) => {
-    section.classList.remove("active");
-  });
+    steps.forEach((section) => {
+        section.classList.remove("active");
+    });
 
-  const currentSection = document.getElementById(`step${step}`);
+    document
+        .getElementById(`step${step}`)
+        .classList.add("active");
 
-  if (currentSection) {
-    currentSection.classList.add("active");
-  }
+    sidebarSteps.forEach((item) => {
+        item.classList.remove("active");
+    });
 
-  sidebarSteps.forEach((item) => {
-    item.classList.remove("active");
-  });
+    if (step >= 1 && step <= 4) {
+        sidebarSteps[step - 1].classList.add("active");
+    }
 
-  if (step >= 1 && step <= 4) {
-    sidebarSteps[step - 1].classList.add("active");
-  }
-
-  currentStep = step;
+    currentStep = step;
 }
 
-
-// =====================
+// ==========================
 // STEP 1 VALIDATION
-// =====================
+// ==========================
 
 function validateStep1() {
 
-  let valid = true;
+    nameError.textContent = "";
+    emailError.textContent = "";
+    phoneError.textContent = "";
 
-  nameError.textContent = "";
-  emailError.textContent = "";
-  phoneError.textContent = "";
+    let valid = true;
 
-  if (nameInput.value.trim() === "") {
-    nameError.textContent = "Enter your name";
-    valid = false;
-  }
+    if (!nameInput.checkValidity()) {
+        nameInput.reportValidity();
+        valid = false;
+    }
 
-  if (emailInput.value.trim() === "") {
-    emailError.textContent = "Enter email";
-    valid = false;
-  } else if (!emailInput.checkValidity()) {
-    emailError.textContent = "Email is not formatted correctly";
-    valid = false;
-  }
+    if (!emailInput.checkValidity()) {
+        emailInput.reportValidity();
+        valid = false;
+    }
 
-  if (phoneInput.value.trim() === "") {
-    phoneError.textContent = "Enter your mobile number";
-    valid = false;
-  }
+    if (!phoneInput.checkValidity()) {
+        phoneInput.reportValidity();
+        valid = false;
+    }
 
-  return valid;
+    if (!valid) {
+        return false;
+    }
+
+    return true;
 }
 
-// =====================
-// STEP 1 -> STEP 2
-// =====================
+// ==========================
+// STEP 1 → STEP 2
+// ==========================
 
 nextBtn.addEventListener("click", () => {
-  if (validateStep1()) {
-    showStep(2);
-  }
+
+    if (validateStep1()) {
+        showStep(2);
+    }
+
 });
 
-
-// =====================
+// ==========================
 // GO BACK BUTTONS
-// =====================
+// ==========================
 
 backBtn2.addEventListener("click", () => {
-  showStep(1);
+    showStep(1);
 });
 
 backBtn3.addEventListener("click", () => {
-  showStep(2);
+    showStep(2);
 });
 
 backBtn4.addEventListener("click", () => {
-  showStep(3);
+    showStep(3);
 });
 
-
-// =====================
+// ==========================
 // PLAN SELECTION
-// =====================
+// ==========================
 
 planCards.forEach((card) => {
 
-  card.addEventListener("click", () => {
+    card.addEventListener("click", () => {
 
-    planCards.forEach((item) => {
-      item.classList.remove("selected");
+        planCards.forEach((item) => {
+            item.classList.remove("selected");
+        });
+
+        card.classList.add("selected");
+
+        selectedPlan = card.dataset.plan;
+
+        selectedPlanPrice =
+            billingType === "monthly"
+                ? Number(card.dataset.monthly)
+                : Number(card.dataset.yearly);
+
     });
-
-    card.classList.add("selected");
-
-    selectedPlan = card.dataset.plan;
-
-    selectedPlanPrice =
-      billingType === "monthly"
-        ? Number(card.dataset.monthly)
-        : Number(card.dataset.yearly);
-
-  });
 
 });
 
-
-// =====================
+// ==========================
 // BILLING TOGGLE
-// =====================
+// ==========================
 
 billingToggle.addEventListener("change", () => {
 
-  billingType = billingToggle.checked
-    ? "yearly"
-    : "monthly";
+    billingType = billingToggle.checked
+        ? "yearly"
+        : "monthly";
 
-  monthlyLabel.classList.toggle(
-    "active",
-    billingType === "monthly"
-  );
+    monthlyLabel.classList.toggle(
+        "active",
+        billingType === "monthly"
+    );
 
-  yearlyLabel.classList.toggle(
-    "active",
-    billingType === "yearly"
-  );
+    yearlyLabel.classList.toggle(
+        "active",
+        billingType === "yearly"
+    );
 
-  const selectedCard = document.querySelector(".plan_card.selected");
+    const selectedCard = document.querySelector(".plan_card.selected");
 
-  if (selectedCard) {
+    if (selectedCard) {
 
-    selectedPlanPrice =
-      billingType === "monthly"
-        ? Number(selectedCard.dataset.monthly)
-        : Number(selectedCard.dataset.yearly);
-
-  }
-
-  updatePrices();
-
-});
-
-
-// =====================
-// STEP 2 -> STEP 3
-// =====================
-
-step2NextBtn.addEventListener("click", () => {
-  showStep(3);
-});
-
-// =====================
-// UPDATE PLAN & ADD-ON PRICES
-// =====================
-
-function updatePrices() {
-
-  planCards.forEach((card) => {
-
-    const price =
-      billingType === "monthly"
-        ? card.dataset.monthly
-        : card.dataset.yearly;
-
-    card.querySelector(".plan-price").textContent =
-      `$${price}${billingType === "monthly" ? "/mo" : "/yr"}`;
-
-  });
-
-  addonCards.forEach((card) => {
-
-    const price =
-      billingType === "monthly"
-        ? card.dataset.monthly
-        : card.dataset.yearly;
-
-    card.querySelector(".addon-price").textContent =
-      `+$${price}${billingType === "monthly" ? "/mo" : "/yr"}`;
-
-  });
-
-}
-
-
-// =====================
-// ADD-ON SELECTION
-// =====================
-
-addonCards.forEach((card) => {
-
-  card.addEventListener("click", () => {
-
-    card.classList.toggle("selected");
-
-    const checkbox = card.querySelector("input[type='checkbox']");
-
-    checkbox.checked = card.classList.contains("selected");
-
-  });
-
-});
-
-
-// =====================
-// STEP 3 -> STEP 4
-// =====================
-
-step3NextBtn.addEventListener("click", () => {
-
-  selectedAddons = [];
-
-  addonCards.forEach((card) => {
-
-    if (card.classList.contains("selected")) {
-
-      selectedAddons.push({
-
-        name: card.dataset.addon,
-
-        price:
-          billingType === "monthly"
-            ? Number(card.dataset.monthly)
-            : Number(card.dataset.yearly)
-
-      });
+        selectedPlanPrice =
+            billingType === "monthly"
+                ? Number(selectedCard.dataset.monthly)
+                : Number(selectedCard.dataset.yearly);
 
     }
 
-  });
-
-  updateSummary();
-
-  showStep(4);
+    updatePrices();
 
 });
 
-// =====================
+// ==========================
+// STEP 2 → STEP 3
+// ==========================
+
+step2NextBtn.addEventListener("click", () => {
+
+    showStep(3);
+
+});
+
+// ==========================
+// UPDATE PLAN & ADD-ON PRICES
+// ==========================
+
+function updatePrices() {
+
+    planCards.forEach((card) => {
+
+        const price =
+            billingType === "monthly"
+                ? card.dataset.monthly
+                : card.dataset.yearly;
+
+        card.querySelector(".plan-price").textContent =
+            `$${price}${billingType === "monthly" ? "/mo" : "/yr"}`;
+
+    });
+
+    addonCards.forEach((card) => {
+
+        const price =
+            billingType === "monthly"
+                ? card.dataset.monthly
+                : card.dataset.yearly;
+
+        card.querySelector(".addon-price").textContent =
+            `+$${price}${billingType === "monthly" ? "/mo" : "/yr"}`;
+
+    });
+
+}
+// ==========================
+// ADD-ON SELECTION
+// ==========================
+
+addonCards.forEach((card) => {
+
+    card.addEventListener("click", () => {
+
+        card.classList.toggle("selected");
+
+        const checkbox = card.querySelector(
+            "input[type='checkbox']"
+        );
+
+        checkbox.checked = card.classList.contains("selected");
+
+    });
+
+});
+
+// ==========================
+// STEP 3 → STEP 4
+// ==========================
+
+step3NextBtn.addEventListener("click", () => {
+
+    selectedAddons = [];
+
+    addonCards.forEach((card) => {
+
+        if (card.classList.contains("selected")) {
+
+            selectedAddons.push({
+
+                name: card.dataset.addon,
+
+                price:
+                    billingType === "monthly"
+                        ? Number(card.dataset.monthly)
+                        : Number(card.dataset.yearly)
+
+            });
+
+        }
+
+    });
+
+    updateSummary();
+
+    showStep(4);
+
+});
+
+// ==========================
 // UPDATE SUMMARY
-// =====================
+// ==========================
 
 function updateSummary() {
 
-  summaryPlanName.textContent =
-    `${selectedPlan} (${billingType === "monthly" ? "Monthly" : "Yearly"})`;
+    summaryPlanName.textContent =
+        `${selectedPlan} (${billingType === "monthly" ? "Monthly" : "Yearly"})`;
 
-  summaryPlanPrice.textContent =
-    `$${selectedPlanPrice}${billingType === "monthly" ? "/mo" : "/yr"}`;
+    summaryPlanPrice.textContent =
+        `$${selectedPlanPrice}${billingType === "monthly" ? "/mo" : "/yr"}`;
 
-  summaryAddons.innerHTML = "";
+    summaryAddons.innerHTML = "";
 
-  let total = selectedPlanPrice;
+    let total = selectedPlanPrice;
 
-  selectedAddons.forEach((addon) => {
+    selectedAddons.forEach((addon) => {
 
-    total += addon.price;
+        total += addon.price;
 
-    const item = document.createElement("div");
+        const item = document.createElement("div");
 
-    item.className = "summary-item";
+        item.className = "summary-item";
 
-    item.innerHTML = `
-      <span>${addon.name}</span>
-      <strong>+$${addon.price}${billingType === "monthly" ? "/mo" : "/yr"}</strong>
-    `;
+        item.innerHTML = `
+            <span>${addon.name}</span>
+            <strong>+$${addon.price}${billingType === "monthly" ? "/mo" : "/yr"}</strong>
+        `;
 
-    summaryAddons.appendChild(item);
+        summaryAddons.appendChild(item);
 
-  });
+    });
 
-  totalLabel.textContent =
-    billingType === "monthly"
-      ? "Total (per month)"
-      : "Total (per year)";
+    totalLabel.textContent =
+        billingType === "monthly"
+            ? "Total (per month)"
+            : "Total (per year)";
 
-  summaryTotalPrice.textContent =
-    `+$${total}${billingType === "monthly" ? "/mo" : "/yr"}`;
+    summaryTotalPrice.textContent =
+        `+$${total}${billingType === "monthly" ? "/mo" : "/yr"}`;
 
 }
 
-
-// =====================
+// ==========================
 // CHANGE PLAN
-// =====================
+// ==========================
 
 changePlan.addEventListener("click", (event) => {
 
-  event.preventDefault();
+    event.preventDefault();
 
-  showStep(2);
+    showStep(2);
 
 });
 
-
-// =====================
+// ==========================
 // CONFIRM
-// =====================
+// ==========================
 
 confirmBtn.addEventListener("click", () => {
 
-  steps.forEach((step) => {
-    step.classList.remove("active");
-  });
+    steps.forEach((step) => {
+        step.classList.remove("active");
+    });
 
-  document.getElementById("thankyou").classList.add("active");
+    document
+        .getElementById("thankyou")
+        .classList.add("active");
 
-  sidebarSteps.forEach((item) => {
-    item.classList.remove("active");
-  });
+    sidebarSteps.forEach((item) => {
+        item.classList.remove("active");
+    });
 
 });
 
-
-// =====================
+// ==========================
 // INITIALIZATION
-// =====================
+// ==========================
 
 showStep(1);
 

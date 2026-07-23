@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,108 +13,155 @@
 <div class="container">
 
     <!-- Sidebar -->
+
     <aside class="sidebar">
 
         <div class="step active">
             <div class="step-number">1</div>
+
             <div class="step-info">
-                <span>Step 1</span>
+                <span>STEP 1</span>
                 <h4>YOUR INFO</h4>
             </div>
         </div>
 
         <div class="step">
             <div class="step-number">2</div>
+
             <div class="step-info">
-                <span>Step 2</span>
+                <span>STEP 2</span>
                 <h4>SELECT PLAN</h4>
             </div>
         </div>
 
         <div class="step">
             <div class="step-number">3</div>
+
             <div class="step-info">
-                <span>Step 3</span>
+                <span>STEP 3</span>
                 <h4>ADD-ONS</h4>
             </div>
         </div>
 
         <div class="step">
             <div class="step-number">4</div>
+
             <div class="step-info">
-                <span>Step 4</span>
+                <span>STEP 4</span>
                 <h4>SUMMARY</h4>
             </div>
         </div>
 
     </aside>
 
-    <!-- Form -->
+    <!-- Main Form -->
+
     <main class="form-container">
 
         <!-- STEP 1 -->
+
         <section id="step1" class="form-step active">
 
             <h1>Personal info</h1>
 
-            <p>Please provide your name, email address, and phone number.</p>
+            <p>
+                Please provide your name, email address, and phone number.
+            </p>
 
             <div class="form-group">
-                <label>Name</label>
+
+                <label for="userName">Name</label>
+
                 <input
                     type="text"
                     id="userName"
                     name="userName"
                     placeholder="e.g. Stephen King"
                     required>
-                <small id="name-error" class="error"></small>
+
+                <small
+                    id="name-error"
+                    class="error">
+                </small>
+
             </div>
 
             <div class="form-group">
-                <label>Email Address</label>
+
+                <label for="email">
+                    Email Address
+                </label>
+
                 <input
                     type="email"
                     id="email"
                     name="email"
                     placeholder="e.g. stephenking@lorem.com"
                     required>
-                <small id="email-error" class="error"></small>
+
+                <small
+                    id="email-error"
+                    class="error">
+                </small>
+
             </div>
 
             <div class="form-group">
-                <label>Phone Number</label>
+
+                <label for="phone">
+                    Phone Number
+                </label>
+
                 <input
                     type="tel"
                     id="phone"
                     name="phone"
                     placeholder="e.g. +1 234 567 890"
                     required>
-                <small id="phone-error" class="error"></small>
+
+                <small
+                    id="phone-error"
+                    class="error">
+                </small>
+
             </div>
 
             <div class="button-group">
-                <button type="button" id="next-button">
+
+                <button
+                    type="button"
+                    id="next-button">
+
                     Next Step
+
                 </button>
+
             </div>
 
         </section>
+                <!-- STEP 2 -->
 
-        <!-- STEP 2 -->
         <section id="step2" class="form-step">
 
             <h1>Select your plan</h1>
 
-            <p>You have the option of monthly or yearly billing.</p>
+            <p>
+                You have the option of monthly or yearly billing.
+            </p>
 
             <div class="plans">
 
-                <div class="plan_card selected"
+                <!-- Arcade -->
+
+                <div
+                    class="plan_card selected"
                     data-plan="Arcade"
                     data-monthly="9"
                     data-yearly="90">
 
-                    <img src="./images/icon-arcade.svg" alt="Arcade">
+                    <img
+                        src="./images/icon-arcade.svg"
+                        alt="Arcade">
 
                     <div class="plan-details">
                         <h3>Arcade</h3>
@@ -122,12 +170,17 @@
 
                 </div>
 
-                <div class="plan_card"
+                <!-- Advanced -->
+
+                <div
+                    class="plan_card"
                     data-plan="Advanced"
                     data-monthly="12"
                     data-yearly="120">
 
-                    <img src="./images/icon-advanced.svg" alt="Advanced">
+                    <img
+                        src="./images/icon-advanced.svg"
+                        alt="Advanced">
 
                     <div class="plan-details">
                         <h3>Advanced</h3>
@@ -136,12 +189,17 @@
 
                 </div>
 
-                <div class="plan_card"
+                <!-- Pro -->
+
+                <div
+                    class="plan_card"
                     data-plan="Pro"
                     data-monthly="15"
                     data-yearly="150">
 
-                    <img src="./images/icon-pro.svg" alt="Pro">
+                    <img
+                        src="./images/icon-pro.svg"
+                        alt="Pro">
 
                     <div class="plan-details">
                         <h3>Pro</h3>
@@ -152,16 +210,29 @@
 
             </div>
 
+            <!-- Billing Toggle -->
+
             <div class="billing-toggle">
 
-                <span id="monthly-label" class="active">Monthly</span>
+                <span
+                    id="monthly-label"
+                    class="active">
+                    Monthly
+                </span>
 
                 <label class="switch">
-                    <input type="checkbox" id="billing-toggle">
+
+                    <input
+                        type="checkbox"
+                        id="billing-toggle">
+
                     <span class="slider"></span>
+
                 </label>
 
-                <span id="yearly-label">Yearly</span>
+                <span id="yearly-label">
+                    Yearly
+                </span>
 
             </div>
 
@@ -171,14 +242,18 @@
                     type="button"
                     id="back-button-step2"
                     class="back-btn">
+
                     Go Back
+
                 </button>
 
                 <button
                     type="button"
                     id="next-button-step2"
                     class="next-btn">
+
                     Next Step
+
                 </button>
 
             </div>
@@ -186,23 +261,27 @@
         </section>
 
                 <!-- STEP 3 -->
+
         <section id="step3" class="form-step">
 
             <h1>Pick add-ons</h1>
 
-            <p>Add-ons help enhance your gaming experience.</p>
+            <p>
+                Add-ons help enhance your gaming experience.
+            </p>
 
             <div class="addons">
 
-                <div class="addon_card"
+                <div
+                    class="addon_card"
                     data-addon="Online service"
                     data-monthly="1"
                     data-yearly="10">
 
                     <input
                         type="checkbox"
-                        id="online-service"
-                        class="addon-checkbox">
+                        class="addon-checkbox"
+                        id="online-service">
 
                     <div class="addon-details">
                         <h3>Online service</h3>
@@ -213,15 +292,16 @@
 
                 </div>
 
-                <div class="addon_card"
+                <div
+                    class="addon_card"
                     data-addon="Larger storage"
                     data-monthly="2"
                     data-yearly="20">
 
                     <input
                         type="checkbox"
-                        id="larger-storage"
-                        class="addon-checkbox">
+                        class="addon-checkbox"
+                        id="larger-storage">
 
                     <div class="addon-details">
                         <h3>Larger storage</h3>
@@ -232,15 +312,16 @@
 
                 </div>
 
-                <div class="addon_card"
+                <div
+                    class="addon_card"
                     data-addon="Customizable profile"
                     data-monthly="2"
                     data-yearly="20">
 
                     <input
                         type="checkbox"
-                        id="custom-profile"
-                        class="addon-checkbox">
+                        class="addon-checkbox"
+                        id="custom-profile">
 
                     <div class="addon-details">
                         <h3>Customizable profile</h3>
@@ -259,14 +340,18 @@
                     type="button"
                     id="back-button-step3"
                     class="back-btn">
+
                     Go Back
+
                 </button>
 
                 <button
                     type="button"
                     id="next-button-step3"
                     class="next-btn">
+
                     Next Step
+
                 </button>
 
             </div>
@@ -274,24 +359,33 @@
         </section>
 
         <!-- STEP 4 -->
+
         <section id="step4" class="form-step">
 
             <h1>Finishing up</h1>
 
-            <p>Double-check everything looks OK before confirming.</p>
+            <p>
+                Double-check everything looks OK before confirming.
+            </p>
 
             <div class="summary-box">
 
                 <div class="summary-plan">
 
                     <div>
+
                         <h3 id="summary-plan-name">
                             Arcade (Monthly)
                         </h3>
 
-                        <a href="#" id="change-plan">
+                        <a
+                            href="#"
+                            id="change-plan">
+
                             Change
+
                         </a>
+
                     </div>
 
                     <strong id="summary-plan-price">
@@ -302,9 +396,7 @@
 
                 <hr>
 
-                <div id="summary-addons">
-                    <!-- Add-ons inserted using JavaScript -->
-                </div>
+                <div id="summary-addons"></div>
 
             </div>
 
@@ -326,14 +418,18 @@
                     type="button"
                     id="back-button-step4"
                     class="back-btn">
+
                     Go Back
+
                 </button>
 
                 <button
                     type="button"
                     id="confirm-button"
                     class="confirm-btn">
+
                     Confirm
+
                 </button>
 
             </div>
@@ -341,6 +437,7 @@
         </section>
 
         <!-- THANK YOU -->
+
         <section id="thankyou" class="form-step">
 
             <div class="thankyou-container">
@@ -352,9 +449,9 @@
                 <h1>Thank You!</h1>
 
                 <p>
-                    Thanks for confirming your subscription! We hope you have
-                    fun using our platform. If you ever need support, please
-                    feel free to email us.
+                    Thanks for confirming your subscription!
+                    We hope you have fun using our platform.
+                    If you ever need support, feel free to email us.
                 </p>
 
             </div>
