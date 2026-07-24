@@ -83,12 +83,16 @@ body{
     padding:40px 50px;
 }
 
-.form-step{
+/* .form-step{
     display:none;
 }
 
 .form-step.active{
     display:block;
+} */
+
+.form-step {
+    display: block !important;
 }
 
 .form-step h1{
